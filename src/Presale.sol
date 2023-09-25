@@ -97,7 +97,7 @@ contract Presale is Ownable, ReentrancyGuard {
         _;
     }
 
-    modifier moreTanZero(uint256 amount) {
+    modifier moreThanZero(uint256 amount) {
         if (amount <= 0) {
             revert Presale__MustBeMoreThanZero();
         }
@@ -141,7 +141,7 @@ contract Presale is Ownable, ReentrancyGuard {
         nonReentrant
         onlyBeforeUnlock
         onlyAllowedToken(tokenAddress)
-        moreTanZero(buyAmount)
+        moreThanZero(buyAmount)
     {
         if (_tokenSold + buyAmount > totalSupply) {
             revert Presale__MaxSupplyReached();
