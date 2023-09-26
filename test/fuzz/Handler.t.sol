@@ -45,7 +45,8 @@ contract Handler is Test {
 
         ERC20Mock tokenMock = ERC20Mock(token);
 
-        tokenMock.mint(address(this), presale.calculateTokensPrice(token, buyAmount));
+        // tokenMock.mint(address(this), presale.calculateTokensPrice(token, buyAmount));
+        deal(token, address(this), presale.calculateTokensPrice(token, buyAmount));
         tokenMock.approve(address(presale), presale.calculateTokensPrice(token, buyAmount));
         presale.buy(token, buyAmount);
 

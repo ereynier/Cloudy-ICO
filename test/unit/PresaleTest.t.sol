@@ -40,14 +40,22 @@ contract PresaleTest is Test {
         (presale, config) = deployer.run();
         (ethUsdPriceFeed, btcUsdPriceFeed, daiUsdPriceFeed, ghoUsdPriceFeed, weth, wbtc, dai, gho,tokenPriceInUsd, totalSupply, unlockTimestamp, ) =
             config.activeNetworkConfig();
-        ERC20Mock(weth).mint(USER_1, STARTING_ERC20_BALANCE);
-        ERC20Mock(weth).mint(USER_2, STARTING_ERC20_BALANCE);
-        ERC20Mock(wbtc).mint(USER_1, STARTING_ERC20_BALANCE);
-        ERC20Mock(wbtc).mint(USER_2, STARTING_ERC20_BALANCE);
-        ERC20Mock(dai).mint(USER_1, STARTING_ERC20_BALANCE);
-        ERC20Mock(dai).mint(USER_2, STARTING_ERC20_BALANCE);
-        ERC20Mock(gho).mint(USER_1, STARTING_ERC20_BALANCE);
-        ERC20Mock(gho).mint(USER_2, STARTING_ERC20_BALANCE);
+        // ERC20Mock(weth).mint(USER_1, STARTING_ERC20_BALANCE);
+        // ERC20Mock(weth).mint(USER_2, STARTING_ERC20_BALANCE);
+        // ERC20Mock(wbtc).mint(USER_1, STARTING_ERC20_BALANCE);
+        // ERC20Mock(wbtc).mint(USER_2, STARTING_ERC20_BALANCE);
+        // ERC20Mock(dai).mint(USER_1, STARTING_ERC20_BALANCE);
+        // ERC20Mock(dai).mint(USER_2, STARTING_ERC20_BALANCE);
+        // ERC20Mock(gho).mint(USER_1, STARTING_ERC20_BALANCE);
+        // ERC20Mock(gho).mint(USER_2, STARTING_ERC20_BALANCE);
+        deal(address(weth), USER_1, STARTING_ERC20_BALANCE);
+        deal(address(weth), USER_2, STARTING_ERC20_BALANCE);
+        deal(address(wbtc), USER_1, STARTING_ERC20_BALANCE);
+        deal(address(wbtc), USER_2, STARTING_ERC20_BALANCE);
+        deal(address(dai), USER_1, STARTING_ERC20_BALANCE);
+        deal(address(dai), USER_2, STARTING_ERC20_BALANCE);
+        deal(address(gho), USER_1, STARTING_ERC20_BALANCE);
+        deal(address(gho), USER_2, STARTING_ERC20_BALANCE);
 
         allowedTokens.push(weth);
         allowedTokens.push(wbtc);
@@ -212,7 +220,8 @@ contract PresaleTest is Test {
     }
 
     function testBurnRemainingRevertIfBurnZero() public {
-        ERC20Mock(weth).mint(USER_1, 10000 ether);
+        //ERC20Mock(weth).mint(USER_1, 10000 ether);
+        deal(address(weth), USER_1, 10000 ether);
         vm.startPrank(USER_1);
         ERC20Mock(weth).approve(address(presale), 10000 ether);
         presale.buy(weth, totalSupply * presale.getPrecision());
